@@ -83,3 +83,8 @@ set hlsearch
 " whatever key you want): map <C-n> :NERDTreeToggle<CR>
 " https://github.com/scrooloose/nerdtree
 map <C-n> :NERDTreeToggle<CR>
+
+"From https://powerline.readthedocs.org/en/latest/overview.html#installation
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
