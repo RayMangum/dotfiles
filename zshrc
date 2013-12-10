@@ -54,6 +54,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export EDITOR="vim"
 # # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -68,3 +69,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 . /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+
+# From 'brew info autojump' caveats:
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
