@@ -15,12 +15,17 @@ filetype indent on
 " Turn on that syntax highlighting
 syntax on
 
+" Set 256 color mode in the hopes that it allows Powerline to show the right
+" colors in Vim outside of tmux (where it works)
+
+set t_Co=256
 " Set colorscheme to Solarized
 " From http://ethanschoonover.com/solarized/vim-colors-solarized
 " syntax enable " Commented out because already included with Pathogen stuff
 
 " http://www.drbunsen.org/the-text-triumvirate/
-let g:solarized_termtrans = 1 
+let g:solarized_termtrans=1 
+let g:solarized_termcolors=16
 set background=dark
 colorscheme solarized
 
@@ -65,11 +70,17 @@ set softtabstop=4
 set expandtab
 set autoindent
 
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+
 " Search highlighting
 set hlsearch
 " Get rid of highlighting for last search
 " From http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" http://www.moolenaar.net/habits.html
+set incsearch
 
 " Insert the time; from http://vim.wikia.com/wiki/Insert_current_date_or_time
 " Works in both normal and insert mode
@@ -89,6 +100,26 @@ python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 
+"From https://powerline.readthedocs.org/en/latest/tipstricks.html
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+" https://github.com/junegunn/vim-easy-align
+" Start interactive EasyAlign in visual mode
+vmap <Enter> <Plug>(EasyAlign)
+
+" Set Pastetoggle to <F2>
+set pastetoggle=<F2>
+
+" Start interactive EasyAlign with a Vim movement
+nmap <Leader>a <Plug>(EasyAlign)
+
 " http://www.drbunsen.org/writing-in-vim/
 func! WordProcessorMode() 
     setlocal formatoptions=1 
@@ -103,3 +134,16 @@ func! WordProcessorMode()
     setlocal linebreak 
 endfu 
 com! WP call WordProcessorMode()
+
+" Snippets
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" matchit - added for https://github.com/nelstrom/vim-textobj-rubyblock
+runtime macros/matchit.vim

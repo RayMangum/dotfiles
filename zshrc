@@ -45,7 +45,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(autojump brew git ruby rails gem bundle)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,6 +54,11 @@ source $ZSH/oh-my-zsh.sh
 # path is handled in .zshenv
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
+
+# TrueCrypt
+# http://marc-abramowitz.com/archives/2011/10/17/easy-access-to-truecrypt-from-the-command-line-in-os-x/
+
+alias truecrypt='/Applications/TrueCrypt.app/Contents/MacOS/Truecrypt --text'
 
 export EDITOR="vim"
 # # Preferred editor for local and remote sessions
@@ -73,3 +78,14 @@ export EDITOR="vim"
 
 # From 'brew info autojump' caveats:
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+# Inserted for rbenv
+eval "$(rbenv init -)"
+
+# From https://twitter.com/tpope/status/165631968996900865
+# and https://github.com/thoughtbot/dotfiles/pull/191
+# and https://github.com/thoughtbot/suspenders/blob/master/bin/setup
+export PATH=".git/safe/../../bin:$PATH"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
