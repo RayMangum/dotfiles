@@ -76,9 +76,6 @@ export EDITOR="vim"
 
 . /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-# From 'brew info autojump' caveats:
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
-
 # Inserted for rbenv
 eval "$(rbenv init -)"
 
@@ -89,3 +86,9 @@ export PATH=".git/safe/../../bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+### From http://jilles.me/badassify-your-terminal-and-shell/
+. ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+### Added based on caveats after brew install z
+. `brew --prefix`/etc/profile.d/z.sh
