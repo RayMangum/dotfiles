@@ -45,7 +45,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump brew git ruby rails gem bundle)
+plugins=(autojump brew git ruby rails gem bundle zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,9 +86,6 @@ export PATH=".git/safe/../../bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-### From http://jilles.me/badassify-your-terminal-and-shell/
-. ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ### Added based on caveats after brew install z
 . `brew --prefix`/etc/profile.d/z.sh
