@@ -1,3 +1,5 @@
+let mapleader = " "
+
 " Much of this file is based on the sample .vimrc files at
 " http://www.derekwyatt.org/vim/the-vimrc-file/
 
@@ -39,8 +41,10 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'kana/vim-textobj-user'
@@ -51,6 +55,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'gabebw/vim-spec-runner'
 Plugin 'christoomey/vim-tmux-runner'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,7 +72,6 @@ filetype plugin on
 filetype indent on
 syntax on
 
-
 set hidden
 set wildmenu
 set lazyredraw
@@ -75,18 +79,22 @@ set showmode
 set vb
 set cpoptions+=$
 set laststatus=2
+set backspace=2
+set nobackup
+set nowritebackup
+set noswapfile
 
 set autoread
-
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set shiftround
 set expandtab
 set autoindent
 
 set incsearch
 set hlsearch
-:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+:nnoremap <silent><leader><Space> :nohlsearch<Bar>:echo<CR>
 
 set splitright
 set splitbelow
@@ -94,6 +102,7 @@ set splitbelow
 set textwidth=80
 set colorcolumn=+1
 
+set number
 set relativenumber
 set numberwidth=5
 
@@ -141,7 +150,7 @@ endif
 " ---------------------------------------------------------------------- 
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
+map <leader>d :NERDTreeToggle<CR>
 
 " EasyAlign
 " https://github.com/junegunn/vim-easy-align
@@ -151,13 +160,39 @@ vmap <Enter> <Plug>(EasyAlign)
 " vim-spec-runner
 " https://github.com/gabebw/vim-spec-runner#configuration
 " Using vim-tmux-runner:
-let g:spec_runner_dispatcher = "VtrSendCommand! {command}"
+let g:spec_runner_dispatcher = 'call VtrSendCommand("{command}")'
 let g:VtrPercentage = 35
-let g:VtrOrientation = "h"
+ 
+" You must use map when you define your mappings. Note that for Magical Vim
+" Reasons, even though you're typing map, it's a normal-mode mapping.
+" https://github.com/gabebw/vim-spec-runner
 
+" Use <Leader>t to run the current spec file.
+map <Leader>t <Plug>RunCurrentSpecFile
+" Use <Leader>u to run the current line in a spec.
+map <Leader>s <Plug>RunFocusedSpec
+" Use <Leader>v to explicitly run the most recent spec.
+map <Leader>l <Plug>RunMostRecentSpec
 " https://github.com/gabebw/vim-spec-runner/issues/25
 command! RunAllSpecs VtrSendCommandToRunner! rspec spec
-nnoremap <leader>R :RunAllSpecs<CR>
+nnoremap <leader>a :RunAllSpecs<CR>
+
+nnoremap <Leader>rr VtrResizeRunner<CR>
+nnoremap <Leader>ror VtrReorientRunner<CR>
+nnoremap <Leader>sc VtrSendCommandToRunner<CR>
+nnoremap <Leader>sl VtrSendLineToRunner<CR>
+nnoremap <Leader>or VtrOpenRunner<CR>
+nnoremap <Leader>kr VtrKillRunner<CR>
+nnoremap <Leader>fr VtrFocusRunner<CR>
+nnoremap <Leader>dr VtrDetachRunner<CR>
+nnoremap <Leader>ar VtrReattachRunner<CR>
+nnoremap <Leader>CR VtrClearRunner<CR>
+nnoremap <Leader>fc VtrFlushCommand<CR>
+
+vnoremap <Leader>sv VtrSendSelectedToRunner<CR>
+
+autocmd FileType c let b:dispatch = 'gcc -o %:r % -Wall'
+nnoremap <Leader>b :Dispatch<CR>
 
 " Snippets
 " Trigger configuration. Do not use <tab> if you use
@@ -212,7 +247,3 @@ func! WordProcessorMode()
     setlocal linebreak 
 endfu 
 com! WP call WordProcessorMode()
-
-
-
-

@@ -89,3 +89,16 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Added based on caveats after brew install z
 . `brew --prefix`/etc/profile.d/z.sh
+
+# Always be in tmux
+# https://upcase.com/videos/tmux-advanced-workflow
+# Add this to your zshrc or bzshrc file
+_not_inside_tmux() { [[ -z "$TMUX" ]] }
+
+ensure_tmux_is_running() {
+  if _not_inside_tmux; then
+    tat
+  fi
+}
+
+ensure_tmux_is_running
