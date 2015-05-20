@@ -76,9 +76,6 @@ set hidden
 set wildmenu
 set lazyredraw
 set showmode
-set vb
-set cpoptions+=$
-set laststatus=2
 set backspace=2
 set nobackup
 set nowritebackup
@@ -106,7 +103,7 @@ set number
 set relativenumber
 set numberwidth=5
 
-:nnoremap <leader>v :e ~/.vimrc<CR>
+:nnoremap <leader>v :e $MYVIMRC<CR>
 
 " PROGRAMMING (see also plugins)
 " ---------------------------------------------------------------------- 
@@ -156,7 +153,6 @@ map <leader>d :NERDTreeToggle<CR>
 " https://github.com/junegunn/vim-easy-align
 " Start interactive EasyAlign in visual mode
 vmap <Enter> <Plug>(EasyAlign)
-
 " vim-spec-runner
 " https://github.com/gabebw/vim-spec-runner#configuration
 " Using vim-tmux-runner:
@@ -193,6 +189,12 @@ vnoremap <Leader>sv VtrSendSelectedToRunner<CR>
 
 autocmd FileType c let b:dispatch = 'gcc -o %:r % -Wall'
 nnoremap <Leader>b :Dispatch<CR>
+nnoremap <Leader>r :call RunCompiledProgram()<CR>
+
+function! RunCompiledProgram()
+  silent !clear
+  execute "!" . expand("%:p:h") . "/" . expand("%:r")
+endfunction
 
 " Snippets
 " Trigger configuration. Do not use <tab> if you use
